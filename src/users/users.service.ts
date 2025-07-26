@@ -4,26 +4,27 @@ import { DrizzleAsyncProvider } from 'src/drizzle/drizzle.provider';
 import * as schema from "../drizzle/schema"
 import { eq } from 'drizzle-orm';
 import { IUser } from './model/users.model';
-import { RedisService } from 'src/redis/redis.service';
+import { UserCacheService } from './cache/user-cache.service';
 
 
 @Injectable()
 export class UsersService {
-  private fiveMin = 300000
   constructor(
     @Inject(DrizzleAsyncProvider)
     private db: NodePgDatabase<typeof schema>,
-    private readonly redisService: RedisService
+    private readonly userCacheService: UserCacheService
   ) { }
 
   async findOne(username: string): Promise<IUser | undefined> {
-    const userByRedis = await this.redisService.getValue(username)
-    if (userByRedis) return userByRedis
+    const cachedUser = await this.userCacheService.getUserByUsername(username);
+    if (cachedUser) return cachedUser;
+
     const user = await this.db.query.users.findFirst({
       where: eq(schema.users.username, username)
     });
+
     if (user) {
-      await this.redisService.setValue(user.username, user, this.fiveMin,)
+      await this.userCacheService.cacheUser(user);
     }
 
     return user ?? undefined;

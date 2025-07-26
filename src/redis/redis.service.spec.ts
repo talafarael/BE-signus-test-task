@@ -4,22 +4,27 @@ import { RedisService } from './redis.service';
 import redisConfig from '../config/redis.config';
 
 // Mock ioredis
-jest.mock('ioredis', () => {
-  return jest.fn().mockImplementation(() => ({
-    on: jest.fn(),
-    disconnect: jest.fn(),
-    set: jest.fn(),
-    setex: jest.fn(),
-    get: jest.fn(),
-    del: jest.fn(),
-    exists: jest.fn(),
-    ttl: jest.fn(),
-    expire: jest.fn(),
-    keys: jest.fn(),
-    flushall: jest.fn(),
-    ping: jest.fn(),
-  }));
-});
+jest.mock('ioredis', () => ({
+  __esModule: true,
+  default: class MockRedis {
+    on = jest.fn();
+    disconnect = jest.fn();
+    set = jest.fn();
+    setex = jest.fn();
+    get = jest.fn();
+    del = jest.fn();
+    exists = jest.fn();
+    ttl = jest.fn();
+    expire = jest.fn();
+    keys = jest.fn();
+    flushall = jest.fn();
+    ping = jest.fn();
+
+    constructor(config?: any) {
+      // Mock constructor
+    }
+  },
+}));
 
 describe('RedisService', () => {
   let service: RedisService;
@@ -27,9 +32,7 @@ describe('RedisService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        ConfigModule.forFeature(redisConfig),
-      ],
+      imports: [ConfigModule.forFeature(redisConfig)],
       providers: [RedisService],
     }).compile();
 
@@ -52,12 +55,30 @@ describe('RedisService', () => {
     });
 
     it('should setup event listeners on construction', () => {
-      expect(redisInstance.on).toHaveBeenCalledWith('connect', expect.any(Function));
-      expect(redisInstance.on).toHaveBeenCalledWith('ready', expect.any(Function));
-      expect(redisInstance.on).toHaveBeenCalledWith('error', expect.any(Function));
-      expect(redisInstance.on).toHaveBeenCalledWith('close', expect.any(Function));
-      expect(redisInstance.on).toHaveBeenCalledWith('reconnecting', expect.any(Function));
-      expect(redisInstance.on).toHaveBeenCalledWith('end', expect.any(Function));
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'connect',
+        expect.any(Function),
+      );
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'ready',
+        expect.any(Function),
+      );
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'error',
+        expect.any(Function),
+      );
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'close',
+        expect.any(Function),
+      );
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'reconnecting',
+        expect.any(Function),
+      );
+      expect(redisInstance.on).toHaveBeenCalledWith(
+        'end',
+        expect.any(Function),
+      );
     });
   });
 
@@ -76,7 +97,11 @@ describe('RedisService', () => {
 
       const result = await service.setValue('test-key', 'test-value', 60);
 
-      expect(redisInstance.setex).toHaveBeenCalledWith('test-key', 60, 'test-value');
+      expect(redisInstance.setex).toHaveBeenCalledWith(
+        'test-key',
+        60,
+        'test-value',
+      );
       expect(result).toBe('OK');
     });
 
@@ -86,7 +111,10 @@ describe('RedisService', () => {
 
       await service.setValue('test-key', objectValue);
 
-      expect(redisInstance.set).toHaveBeenCalledWith('test-key', JSON.stringify(objectValue));
+      expect(redisInstance.set).toHaveBeenCalledWith(
+        'test-key',
+        JSON.stringify(objectValue),
+      );
     });
 
     it('should stringify object values with TTL', async () => {
@@ -95,7 +123,11 @@ describe('RedisService', () => {
 
       await service.setValue('test-key', objectValue, 120);
 
-      expect(redisInstance.setex).toHaveBeenCalledWith('test-key', 120, JSON.stringify(objectValue));
+      expect(redisInstance.setex).toHaveBeenCalledWith(
+        'test-key',
+        120,
+        JSON.stringify(objectValue),
+      );
     });
   });
 
@@ -152,5 +184,4 @@ describe('RedisService', () => {
       expect(result).toBe(0);
     });
   });
-
 });

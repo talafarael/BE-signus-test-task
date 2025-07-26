@@ -72,7 +72,4 @@ export class RedisService extends Redis implements OnModuleDestroy {
     return this.del(key);
   }
 
-  async checkConnection(): Promise<string> {
-    return this.ping();
-  }
 }
