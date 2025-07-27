@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 import { DrizzleModule } from './drizzle.module';
-import { DrizzleAsyncProvider } from './drizzle.provider';
 import dbConfig from '../config/db.config';
 
 describe('DrizzleModule', () => {

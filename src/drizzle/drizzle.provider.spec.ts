@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DrizzleAsyncProvider } from './drizzle.provider';
 import dbConfig from '../config/db.config';
 
-// Mock pg
 jest.mock('pg', () => ({
   Pool: jest.fn().mockImplementation(() => ({
     connect: jest.fn(),
@@ -12,7 +11,6 @@ jest.mock('pg', () => ({
   })),
 }));
 
-// Mock drizzle-orm
 jest.mock('drizzle-orm/node-postgres', () => ({
   drizzle: jest.fn().mockReturnValue({
     query: {},

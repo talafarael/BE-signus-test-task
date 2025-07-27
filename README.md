@@ -1,98 +1,338 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# BE Signus Test Task
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A robust NestJS application featuring user authentication, JWT tokens, PostgreSQL database with Drizzle ORM, Redis caching, and comprehensive API documentation.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Features
 
-## Description
+- **User Authentication**: Registration and login with JWT tokens
+- **Database**: PostgreSQL with Drizzle ORM for migrations and queries
+- **Caching**: Redis integration for performance optimization
+- **API Documentation**: Auto-generated Swagger/OpenAPI documentation
+- **Validation**: Input validation with class-validator
+- **Testing**: Unit tests and E2E testing with Jest
+- **Containerization**: Docker and Docker Compose setup
+- **Security**: Password hashing with bcrypt
+- **Type Safety**: Full TypeScript support
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🛠 Tech Stack
 
-## Project setup
+- **Framework**: NestJS
+- **Database**: PostgreSQL 15
+- **ORM**: Drizzle ORM
+- **Cache**: Redis 7
+- **Authentication**: Passport JWT
+- **Validation**: class-validator, class-transformer
+- **Documentation**: Swagger/OpenAPI
+- **Testing**: Jest
+- **Containerization**: Docker, Docker Compose
 
-```bash
-$ yarn install
-```
+## 📋 Prerequisites
 
-## Compile and run the project
+- Node.js 18+ 
+- npm or yarn
+- Docker and Docker Compose
+- Git
 
-```bash
-# development
-$ yarn run start
+## ⚙️ Installation & Setup
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Run tests
+### 1. Clone the Repository
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+git clone <repository-url>
+cd be-signus-test-task
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 2. Install Dependencies
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 3. Environment Configuration
 
-## Resources
+Create a `.env` file in the root directory:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# ==============================================
+# DATABASE CONFIGURATION
+# ==============================================
+POSTGRES_DB=signus_db
+POSTGRES_USER=signus_user
+POSTGRES_PASSWORD=StrongPassword123!
+DATABASE_URL=postgresql://signus_user:StrongPassword123!@localhost:5432/signus_db
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# ==============================================
+# REDIS CONFIGURATION  
+# ==============================================
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_USERNAME=
+REDIS_PASSWORD=RedisPass123!
+REDIS_DB=0
 
-## Support
+# ==============================================
+# APPLICATION CONFIGURATION
+# ==============================================
+NODE_ENV=development
+PORT=3000
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# ==============================================
+# JWT CONFIGURATION
+# ==============================================
+# Generate a strong secret: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-2024
+JWT_EXPIRES_IN=7d
+```
 
-## Stay in touch
+> **Security Note**: Change all passwords and secrets before deploying to production!
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 4. Start Infrastructure Services
 
-## License
+```bash
+# Start PostgreSQL and Redis
+docker-compose up postgres redis -d
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 5. Run Database Migrations
+
+```bash
+npm run migrate
+```
+
+### 6. Start the Application
+
+```bash
+# Development mode with hot reload
+npm run start:dev
+
+# Production mode
+npm run start:prod
+```
+
+The application will be available at `http://localhost:3000`
+
+## 🐳 Docker Setup
+
+### Full Docker Deployment
+
+```bash
+# Start all services (app, database, redis)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+```
+
+### Infrastructure Only
+
+```bash
+# Start only PostgreSQL and Redis
+docker-compose up postgres redis -d
+```
+
+## 📖 API Documentation
+
+Once the application is running, visit:
+- **Swagger UI**: `http://localhost:3000/api`
+- **OpenAPI JSON**: `http://localhost:3000/api-json`
+
+### API Endpoints
+
+#### Authentication
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/auth/registration` | Register a new user | No |
+| POST | `/auth/login` | Login user | No |
+
+#### Users
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/users/me` | Get current user profile | Yes (JWT) |
+
+### Example Requests
+
+#### Register User
+```bash
+curl -X POST http://localhost:3000/auth/registration \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "john_doe",
+    "fullName": "John Doe",
+    "password": "securePassword123"
+  }'
+```
+
+#### Login
+```bash
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "john_doe",
+    "password": "securePassword123"
+  }'
+```
+
+#### Get Profile (Protected)
+```bash
+curl -X GET http://localhost:3000/users/me \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 🗄️ Database Schema
+
+### Users Table
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL,
+  "full-name" TEXT NOT NULL,
+  password TEXT NOT NULL
+);
+```
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+# Database & Migrations
+npm run generate    # Generate new migration
+npm run migrate     # Run pending migrations
+npm run studio      # Open Drizzle Studio (database GUI)
+
+# Development
+npm run start:dev   # Start with hot reload
+npm run start:debug # Start in debug mode
+npm run build       # Build for production
+npm run start:prod  # Start production build
+
+# Code Quality
+npm run lint        # Lint and fix code
+npm run format      # Format code with Prettier
+
+# Testing
+npm run test        # Run unit tests
+npm run test:watch  # Run tests in watch mode
+npm run test:cov    # Run tests with coverage
+npm run test:e2e    # Run end-to-end tests
+npm run test:debug  # Debug tests
+```
+
+### Project Structure
+
+```
+src/
+├── auth/              # Authentication module
+│   ├── dto/           # Data Transfer Objects
+│   ├── guards/        # Auth guards (JWT, Local)
+│   ├── strategies/    # Passport strategies
+│   └── ...
+├── users/             # Users module
+│   ├── dto/           # User DTOs
+│   ├── cache/         # User caching service
+│   └── ...
+├── config/            # Configuration files
+├── drizzle/           # Database schema and provider
+├── redis/             # Redis module and service
+├── common/            # Shared utilities and validators
+└── main.ts            # Application entry point
+```
+
+## 🧪 Testing
+
+### Run Tests
+
+```bash
+# All tests
+npm run test
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:cov
+
+# E2E tests
+npm run test:e2e
+```
+
+### Test Structure
+- **Unit Tests**: `*.spec.ts` files alongside source code
+- **E2E Tests**: `test/` directory
+- **Test Configuration**: `jest` configuration in `package.json`
+
+## 🔍 Monitoring & Debugging
+
+### Health Checks
+- **Application**: `http://localhost:3000/health` (if implemented)
+- **PostgreSQL**: Docker health check included
+- **Redis**: Docker health check included
+
+### Logs
+```bash
+# Application logs
+docker-compose logs app
+
+# Database logs  
+docker-compose logs postgres
+
+# Redis logs
+docker-compose logs redis
+```
+
+## 🚀 Production Deployment
+
+### Environment Variables for Production
+
+```bash
+NODE_ENV=production
+JWT_SECRET=<generate-strong-64-char-secret>
+POSTGRES_PASSWORD=<strong-database-password>
+REDIS_PASSWORD=<strong-redis-password>
+```
+
+### Security Recommendations
+
+1. **Secrets Management**: Use environment-specific secret management
+2. **JWT Secret**: Generate cryptographically secure secrets
+3. **Database**: Enable SSL/TLS connections
+4. **Redis**: Enable authentication and SSL
+5. **Monitoring**: Implement logging and monitoring solutions
+6. **Updates**: Keep dependencies updated
+
+### Production Checklist
+
+- [ ] Update all default passwords
+- [ ] Configure proper JWT secret rotation
+- [ ] Set up SSL/TLS certificates
+- [ ] Configure logging and monitoring
+- [ ] Set up backup strategies
+- [ ] Configure reverse proxy (nginx/traefik)
+- [ ] Set resource limits in Docker
+- [ ] Configure health checks
+- [ ] Set up CI/CD pipeline
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the UNLICENSED License.
+
+## 📞 Support
+
+For questions or issues, please open an issue in the repository or contact the development team.
+
+---
+
+**Happy Coding! 🎉**

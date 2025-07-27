@@ -5,7 +5,6 @@ import { DrizzleAsyncProvider } from './drizzle.provider';
 import * as schema from './schema';
 import dbConfig from '../config/db.config';
 
-// Mock dependencies
 jest.mock('pg', () => ({
   Pool: jest.fn().mockImplementation(() => ({
     connect: jest.fn().mockResolvedValue({}),
@@ -72,11 +71,9 @@ describe('Drizzle Integration Tests', () => {
   });
 
   it('should support CRUD operations', async () => {
-    // INSERT
     const insertOp = drizzleDb.insert(schema.users);
     expect(insertOp.values).toBeDefined();
 
-    // SELECT
     const selectOp = drizzleDb.select().from(schema.users);
     expect(selectOp.where).toBeDefined();
   });
@@ -84,7 +81,7 @@ describe('Drizzle Integration Tests', () => {
   it('should be singleton instance', () => {
     const instance1 = module.get(DrizzleAsyncProvider);
     const instance2 = module.get(DrizzleAsyncProvider);
-    
+
     expect(instance1).toBe(instance2);
   });
 }); 
